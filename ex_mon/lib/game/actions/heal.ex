@@ -3,7 +3,6 @@ defmodule ExMon.Game.Actions.Heal do
   alias ExMon.Game.Status
   @heal_power 18..25
 
-
   def heal_life(player) do
     player
     |> Game.fetch_player()
@@ -15,12 +14,12 @@ defmodule ExMon.Game.Actions.Heal do
   defp calculate_total_life(life), do: Enum.random(@heal_power) + life
 
   defp set_life(life, player) when life > 100, do: update_life_player(player, 100)
-  defp set_life(life, player),  do: update_life_player(player, life)
+  defp set_life(life, player), do: update_life_player(player, life)
 
   defp update_life_player(player, life) do
     player
     |> Game.fetch_player()
-    |> Map.put(:life,life)
+    |> Map.put(:life, life)
     |> update_game(player, life)
   end
 
