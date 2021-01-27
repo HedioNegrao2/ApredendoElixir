@@ -12,6 +12,13 @@ defmodule ExMon.Trainer do
   end
 
   @requered_params [:name, :password]
+
+  def build(params) do
+    params
+    |> changeset()
+    |> apply_action(:insert)
+    
+  end
   def changeset(params) do
     %__MODULE__{}
     |> cast(params, @requered_params)
@@ -20,7 +27,7 @@ defmodule ExMon.Trainer do
     |> put_pass_hash()
   end
 
-  defp put_pass_hash(%Ecto.ChageSet{valid?: true, changes:%{password: password}} = changeset)  do
+  defp put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset)  do
     change(changeset, Argon2.add_hash(password))
   end
 
